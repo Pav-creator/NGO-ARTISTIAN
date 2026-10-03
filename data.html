@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Collection — Field Project</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#fff; color:#000;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size:17px; line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+.mono { font-family: ui-monospace, "IBM Plex Mono", "Atkinson Hyperlegible Mono", SFMono-Regular, Menlo, monospace; }
+.container { max-width:720px; margin:0 auto; padding:64px 24px 0 24px; }
+.mark { font-size:13px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:56px; }
+.mark span { color:#666; }
+h1.headline {
+  font-variant:small-caps;
+  font-size:clamp(34px, 7vw, 58px);
+  line-height:1.05; letter-spacing:-0.01em; font-weight:600;
+  margin-bottom:48px; text-align:left;
+}
+.sections { text-align:center; font-size:13.5px; margin-bottom:64px; }
+.sections a { color:#000; text-decoration:none; margin:0 6px; }
+.sections a:hover { text-decoration:underline; }
+.sections a.active { font-weight:bold; text-decoration:underline; }
+.body { text-align:left; margin-top:20px; }
+.body p { margin-bottom:22px; }
+.body h3 { font-size:17px; font-weight:700; margin:40px 0 12px 0; }
+.num { color:#666; }
+
+/* Ultra-Clean MCQ Styles */
+.q-block { margin-bottom: 36px; }
+.q-text { font-size: 16px; font-weight: 600; color: #000; margin-bottom: 12px; line-height: 1.5; }
+.q-options { list-style: none; padding: 0; margin: 0; }
+.q-options li { font-size: 15px; color: #444; margin-bottom: 8px; display: flex; align-items: center; transition: color 0.2s ease; }
+.q-options li:hover { color: #000; }
+.q-options li::before { content: '○'; font-size: 14px; color: #999; margin-right: 12px; font-family: ui-monospace, monospace; }
+
+/* Floating Side/Bottom Navigation */
+.side-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 999; }
+.side-nav.left { left: 0; }
+.side-nav.right { right: 0; }
+.side-nav a {
+  display: flex; align-items: center; gap: 8px; background: #fff; color: #000;
+  text-decoration: none; padding: 12px 16px; border: 1px solid #e2e2e2;
+  font-family: ui-monospace, monospace; font-size: 13px; transition: all 0.2s;
+}
+.side-nav.left a { border-left: none; border-radius: 0 4px 4px 0; }
+.side-nav.right a { border-right: none; border-radius: 4px 0 0 4px; }
+.side-nav a:hover { background: #000; color: #fff; border-color: #000; }
+
+footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font-size:13.5px; color:#000; text-align:center; }
+@media (max-width:800px){
+  body { font-size:16px; }
+  .container { padding:44px 20px 0 20px; }
+  h1.headline { margin-bottom:36px; }
+  .side-nav { top: auto; bottom: 24px; transform: none; }
+  .side-nav.left { left: 16px; }
+  .side-nav.right { right: 16px; }
+  .side-nav a { border: 1px solid #e2e2e2 !important; border-radius: 30px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Buttons -->
+<div class="side-nav left"><a href="index.html"><span>←</span> Home</a></div>
+<div class="side-nav right"><a href="graphs.html">Graphs <span>→</span></a></div>
+
+<div class="container">
+  <div class="mark mono">AV <span>— Field Project · Mumbai</span></div>
+  <h1 class="headline">Local Craft. Real Reach.</h1>
+
+  <div class="sections mono" style="border-top:1px solid #eee; padding-top:40px;">
+    <a href="index.html">Home</a> ·
+    <a href="data.html" class="active">Data Collection</a> ·
+    <a href="graphs.html">Graphs & Results</a> ·
+    <a href="about.html">About</a>
+  </div>
+
+  <div class="body">
+    <h3><span class="num">(1)</span> Method</h3>
+    <p>Descriptive field study, quantitative and qualitative. Population: NGOs, artisans, local creators — crafts, handloom, NGO services, household goods. Sampling: random / stratified random, n = 104. Tools: Google Forms, interview schedule, observation notes. Analysis in Excel: percentages, frequency, charts; interviews grouped by theme.</p>
+    <p>Problem statement: “To understand the website requirements, digital readiness, and challenges faced by NGOs and artisans, and to suggest training modules and feature-rich website development to increase their online visibility.” Ethics: voluntary, verbal consent, confidential academic use. Limits: busy schedules, translation needs, connectivity gaps, selected locations.</p>
+
+    <h3><span class="num">(2)</span> Survey Questionnaire</h3>
+    <p>The following structured questions were presented to our 104 respondents:</p>
+
+    <div class="q-block">
+      <div class="q-text">1. What is your age?</div>
+      <ul class="q-options">
+        <li>Less than 18</li>
+        <li>Between 18-25</li>
+        <li>Above 25</li>
+        <li>Prefer not to say</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">2. Do you think having a dedicated website would help your products reach a wider audience?</div>
+      <ul class="q-options">
+        <li>Yes, absolutely</li>
+        <li>Maybe it would help</li>
+        <li>Not sure</li>
+        <li>No, offline is better</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">3. How do you currently showcase or market your products to potential buyers outside your local area?</div>
+      <ul class="q-options">
+        <li>Word of mouth and referrals</li>
+        <li>Exhibitions, fairs, and local events</li>
+        <li>Social media posts and status updates</li>
+        <li>We have no reach outside our local area</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">4. Do you or your team members need any training or guidance to operate a website?</div>
+      <ul class="q-options">
+        <li>Yes, full training is needed</li>
+        <li>A little guidance will work</li>
+        <li>We can figure it out ourselves</li>
+        <li>No need at all</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">5. If a website is built for you, what would you want to see on it first?</div>
+      <ul class="q-options">
+        <li>Product photo gallery and prices</li>
+        <li>Story and details about your NGO/work</li>
+        <li>Direct customer contact or order option</li>
+        <li>Online payment integration</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">6. What do you find most difficult about using digital tools?</div>
+      <ul class="q-options">
+        <li>Language barrier (English)</li>
+        <li>Managing and tracking orders</li>
+        <li>Fear of online fraud</li>
+        <li>Slow internet connectivity</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">7. What do customers find easiest for connecting with you?</div>
+      <ul class="q-options">
+        <li>Phone call or WhatsApp chat</li>
+        <li>Social media messages</li>
+        <li>Direct website inquiry form</li>
+        <li>Email</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">8. How much can you spend monthly to grow your business or NGO online?</div>
+      <ul class="q-options">
+        <li>A little (₹1,000 - ₹5,000)</li>
+        <li>Nothing (want free tools)</li>
+        <li>More than ₹5,000</li>
+        <li>Depends on project results</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">9. What kind of support do you expect from a web developer or designer after the website is launched?</div>
+      <ul class="q-options">
+        <li>Regular maintenance and updates</li>
+        <li>Training sessions for managing content</li>
+        <li>Fixing technical bugs when they occur</li>
+        <li>No ongoing support needed</li>
+      </ul>
+    </div>
+    <div class="q-block">
+      <div class="q-text">10. Which feature is most important for building trust with your customers on the website?</div>
+      <ul class="q-options">
+        <li>Customer reviews and testimonials</li>
+        <li>Verified security badges and certificates</li>
+        <li>Clear return and refund policies</li>
+        <li>Detailed about us and artisan stories</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="container mono">Abhay Verma © 2026</div>
+</footer>
+
+</body>
+</html>
