@@ -12,6 +12,9 @@
 <meta property="og:title" content="Local Craft. Real Reach.">
 <meta property="og:description" content="Field project studying digital adoption for NGOs and Artisans.">
 
+<!-- Chart.js Library (For Interactive Graphs) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; overflow-x: hidden; }
@@ -50,17 +53,34 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
   border: 1px solid #eee; 
   padding: 24px; 
   border-radius: 8px; 
-  transition: border-color 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   page-break-inside: avoid;
+  display: flex;
+  flex-direction: column;
 }
-.pie-block:hover { border-color: #ccc; }
+.pie-block:hover { 
+  border-color: #ddd; 
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
 .pie-block .pt { font-size:15px; font-weight:700; margin-bottom:16px; color: #111; line-height: 1.4; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
 .pie-block .pt span { color: #666; font-family: ui-monospace, monospace; font-size: 13px; font-weight: normal; margin-right: 4px; }
-.pie-row { display:flex; gap:16px; align-items:center; }
-.pie { width:100px; height:100px; border-radius:50%; flex-shrink:0; border:1px solid #eaeaea; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.pie-row { display:flex; gap:16px; align-items:center; margin-bottom: 16px; }
+.pie-container { width: 120px; height: 120px; position: relative; flex-shrink: 0; } /* Resized for Chart.js */
 .leg { font-size:13.5px; line-height:1.7; }
-.leg div { margin-bottom:4px; display: flex; align-items: center; }
+.leg div { margin-bottom:4px; display: flex; align-items: center; cursor: default; }
 .sq { display:inline-block; width:10px; height:10px; margin-right:8px; border-radius: 2px; }
+
+/* Graph Description Area */
+.pie-desc {
+  margin-top: auto; 
+  padding-top: 14px;
+  border-top: 1px dashed #e2e2e2;
+  font-size: 13.5px;
+  color: #555;
+  line-height: 1.6;
+}
+.pie-desc b { color: #222; }
 
 /* Data Summary */
 .data { border-top:1px solid #000; margin:32px 0 22px 0; }
@@ -85,7 +105,7 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
 @media print {
   .side-nav, .sections, .submit-btn { display: none !important; }
   body { font-size: 14px; }
-  .pie-block { border: 1px solid #ddd; }
+  .pie-block { border: 1px solid #ddd; box-shadow: none !important; transform: none !important; }
   .fade-in-section { opacity: 1 !important; transform: none !important; visibility: visible !important; }
 }
 
@@ -122,93 +142,113 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
   <div class="body">
     <div class="fade-in-section">
       <h3><span class="num">(1)</span> Survey Data Visualisation (n=104)</h3>
-      <p>The visualizations below map the responses collected during the field study. Overall, <b>75.9%</b> believe a website would enhance their reach, while technical skill and budget remain the primary operational hurdles.</p>
+      <p>The visualizations below are interactive. <b>Hover or tap on the graph slices</b> to view detailed percentages. Overall, 75.9% believe a website would enhance their reach.</p>
     </div>
 
     <div class="pies">
+      
+      <!-- Graph 1 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q1.</span> Age Demographics</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 50%, #F59E0B 50% 70.2%, #10B981 70.2% 85.6%, #EF4444 85.6% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="18–25,Under 18,Above 25,Unspecified" data-values="50.0,20.2,15.4,14.4"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>18–25 (50.0%)</div><div><span class="sq" style="background:#F59E0B"></span>Under 18 (20.2%)</div><div><span class="sq" style="background:#10B981"></span>Above 25 (15.4%)</div><div><span class="sq" style="background:#EF4444"></span>Unspecified (14.4%)</div></div>
         </div>
+        <div class="pie-desc">Half of the respondents belong to the <b>18–25 age bracket</b>. This highlights that a younger demographic of local creators is actively exploring digital transitions.</div>
       </div>
       
+      <!-- Graph 2 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q2.</span> Would a website help?</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 44.2%, #F59E0B 44.2% 75.9%, #10B981 75.9% 96.1%, #EF4444 96.1% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="Yes absolutely,Maybe,Not sure,Offline better" data-values="44.2,31.7,20.2,3.8"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Yes, absolutely (44.2%)</div><div><span class="sq" style="background:#F59E0B"></span>Maybe (31.7%)</div><div><span class="sq" style="background:#10B981"></span>Not sure (20.2%)</div><div><span class="sq" style="background:#EF4444"></span>Offline better (3.8%)</div></div>
         </div>
+        <div class="pie-desc">A strong majority <b>(75.9% combined)</b> acknowledge that a dedicated website would significantly boost their reach. Only a negligible 3.8% strongly prefer offline.</div>
       </div>
 
+      <!-- Graph 3 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q3.</span> Current Marketing Reach</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 33.7%, #F59E0B 33.7% 63.5%, #10B981 63.5% 89.5%, #EF4444 89.5% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="Word of mouth,Social media,Exhibitions,No reach" data-values="33.7,29.8,26.0,10.6"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Word of mouth (33.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Social media (29.8%)</div><div><span class="sq" style="background:#10B981"></span>Exhibitions (26.0%)</div><div><span class="sq" style="background:#EF4444"></span>No reach (10.6%)</div></div>
         </div>
+        <div class="pie-desc">Traditional <b>Word of Mouth (33.7%)</b> remains the dominant strategy. Alarmingly, over 10% have zero reach outside their local vicinity, a critical growth bottleneck.</div>
       </div>
 
+      <!-- Graph 4 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q4.</span> Training required?</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 33.7%, #F59E0B 33.7% 61.6%, #10B981 61.6% 81.8%, #EF4444 81.8% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="A little guidance,Self-learn,No need,Full training" data-values="33.7,27.9,20.2,18.3"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>A little guidance (33.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Self-learn (27.9%)</div><div><span class="sq" style="background:#10B981"></span>No need (20.2%)</div><div><span class="sq" style="background:#EF4444"></span>Full training (18.3%)</div></div>
         </div>
+        <div class="pie-desc">More than half of the artisans <b>(52% combined)</b> require technical guidance or full training to manage a website, indicating a strong need for educational support.</div>
       </div>
 
+      <!-- Graph 5 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q5.</span> Preferred Site Feature</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 31.7%, #F59E0B 31.7% 60.5%, #10B981 60.5% 86.5%, #EF4444 86.5% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="NGO story,Payments,Contact form,Gallery" data-values="31.7,28.8,26.0,13.5"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>NGO story (31.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Payments (28.8%)</div><div><span class="sq" style="background:#10B981"></span>Contact form (26.0%)</div><div><span class="sq" style="background:#EF4444"></span>Gallery (13.5%)</div></div>
         </div>
+        <div class="pie-desc">Brand authenticity through the <b>NGO/Artisan Story (31.7%)</b> is highly demanded, closely followed by payments. Users want connection before transactions.</div>
       </div>
 
+      <!-- Graph 6 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q6.</span> Biggest Digital Barrier</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 29.8%, #F59E0B 29.8% 53.8%, #10B981 53.8% 77.8%, #EF4444 77.8% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="English UI,Fraud fear,Slow internet,Order tracking" data-values="29.8,24.0,24.0,22.1"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>English UI (29.8%)</div><div><span class="sq" style="background:#F59E0B"></span>Fraud fear (24.0%)</div><div><span class="sq" style="background:#10B981"></span>Slow internet (24.0%)</div><div><span class="sq" style="background:#EF4444"></span>Order tracking (22.1%)</div></div>
         </div>
+        <div class="pie-desc">The <b>English UI barrier (29.8%)</b> is the primary hurdle. Fear of online fraud and slow connectivity also hold back nearly half the respondents from digital expansion.</div>
       </div>
 
+      <!-- Graph 7 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q7.</span> Preferred Contact Method</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 33.7%, #F59E0B 33.7% 61.6%, #10B981 61.6% 81.8%, #EF4444 81.8% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="WhatsApp/Phone,Social media,Website form,Email" data-values="33.7,27.9,20.2,18.3"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>WhatsApp/Phone (33.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Social media (27.9%)</div><div><span class="sq" style="background:#10B981"></span>Website form (20.2%)</div><div><span class="sq" style="background:#EF4444"></span>Email (18.3%)</div></div>
         </div>
+        <div class="pie-desc">Instant messaging platforms like <b>WhatsApp (33.7%)</b> are the most comfortable channels. Websites should integrate direct chat links rather than complex forms.</div>
       </div>
 
+      <!-- Graph 8 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q8.</span> Monthly Digital Budget</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 31.7%, #F59E0B 31.7% 57.7%, #10B981 57.7% 81.7%, #EF4444 81.7% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="Above ₹5k,₹1k–₹5k,Free tools only,Depends" data-values="31.7,26.0,24.0,18.3"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Above ₹5,000 (31.7%)</div><div><span class="sq" style="background:#F59E0B"></span>₹1k–₹5k (26.0%)</div><div><span class="sq" style="background:#10B981"></span>Free tools only (24.0%)</div><div><span class="sq" style="background:#EF4444"></span>Depends (18.3%)</div></div>
         </div>
+        <div class="pie-desc">While 31.7% can invest over ₹5,000, a significant <b>24.0% strictly seek zero-cost tools</b>, highlighting the necessity for heavily subsidized static tech solutions.</div>
       </div>
 
+      <!-- Graph 9 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q9.</span> Expected Dev Support</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 29.8%, #F59E0B 29.8% 53.8%, #10B981 53.8% 77.8%, #EF4444 77.8% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="Bug fixes,Training,Maintenance,No support" data-values="29.8,24.0,24.0,22.1"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Bug fixes (29.8%)</div><div><span class="sq" style="background:#F59E0B"></span>Training (24.0%)</div><div><span class="sq" style="background:#10B981"></span>Maintenance (24.0%)</div><div><span class="sq" style="background:#EF4444"></span>No support (22.1%)</div></div>
         </div>
+        <div class="pie-desc">Developers must provide continued assistance. <b>Bug fixing (29.8%)</b> and regular maintenance (24.0%) prove development isn't just a one-time handover.</div>
       </div>
 
+      <!-- Graph 10 -->
       <div class="pie-block fade-in-section">
         <div class="pt"><span>Q10.</span> Primary Trust Factor</div>
         <div class="pie-row">
-          <div class="pie" style="background:conic-gradient(#2563EB 0% 35.6%, #F59E0B 35.6% 57.7%, #10B981 57.7% 79.8%, #EF4444 79.8% 100%);"></div>
+          <div class="pie-container"><canvas class="interactive-chart" data-labels="Security badges,Reviews,Artisan stories,Return policy" data-values="35.6,22.1,22.1,20.2"></canvas></div>
           <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Security badges (35.6%)</div><div><span class="sq" style="background:#F59E0B"></span>Reviews (22.1%)</div><div><span class="sq" style="background:#10B981"></span>Artisan stories (22.1%)</div><div><span class="sq" style="background:#EF4444"></span>Return policy (20.2%)</div></div>
         </div>
+        <div class="pie-desc">Visible <b>security verification badges (35.6%)</b> act as the strongest catalyst for consumer trust. Clear display of authentic customer reviews follows closely behind.</div>
       </div>
     </div>
 
     <div class="fade-in-section">
-      <!-- Full Data Summary -->
       <div class="data mono">
         <div class="drow"><b>Positive toward websites (Yes + Maybe)</b><span class="pct">75.9%</span></div>
         <div class="drow"><b>Need some help (guidance + full training)</b><span class="pct">52.0%</span></div>
@@ -216,11 +256,6 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
         <div class="drow"><b>Top contact: phone / WhatsApp</b><span class="pct">33.7%</span></div>
         <div class="drow"><b>Top trust factor: security badges</b><span class="pct">35.6%</span></div>
       </div>
-
-      <h3><span class="num">(2)</span> Key findings</h3>
-      <p><b>Skill.</b> 52.0% require operational assistance. The English barrier (29.8%) acts as the primary roadblock. <b>Budget.</b> While 31.7% have flexible budgets, 24.0% rely strictly on free tools, highlighting the need for low-cost, open-source tech stacks. <b>Trust.</b> Verification badges (35.6%) and transparent artisan stories build the highest consumer confidence.</p>
-
-      <!-- PRINT BUTTON -->
       <button onclick="window.print()" class="submit-btn" style="margin: 40px auto 0 auto; display: block;">Download Graphs PDF</button>
     </div>
 
@@ -231,9 +266,11 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
   <div class="container mono">Abhay Verma © 2026</div>
 </footer>
 
-<!-- Scroll Animation Script -->
+<!-- Chart.js & Animation Script -->
 <script>
   document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Scroll Fade-in Observer
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -242,10 +279,54 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
       });
     }, { threshold: 0.1 });
 
-    const sections = document.querySelectorAll('.fade-in-section');
-    sections.forEach(section => {
+    document.querySelectorAll('.fade-in-section').forEach(section => {
       observer.observe(section);
     });
+
+    // 2. Chart.js Implementation
+    const chartColors = ['#2563EB', '#F59E0B', '#10B981', '#EF4444'];
+    
+    document.querySelectorAll('.interactive-chart').forEach(canvas => {
+      const labels = canvas.getAttribute('data-labels').split(',');
+      const dataValues = canvas.getAttribute('data-values').split(',').map(Number);
+      
+      new Chart(canvas, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: dataValues,
+            backgroundColor: chartColors,
+            borderWidth: 2,
+            borderColor: '#ffffff',
+            hoverOffset: 12 // This makes the slice pop out when hovered/clicked
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: {
+            padding: 12 // Prevents the pop-out slice from cutting off
+          },
+          plugins: {
+            legend: { display: false }, // We use our custom HTML legend
+            tooltip: {
+              backgroundColor: '#000000',
+              titleFont: { family: 'Inter', size: 13 },
+              bodyFont: { family: 'ui-monospace, monospace', size: 14 },
+              padding: 10,
+              cornerRadius: 6,
+              callbacks: {
+                label: function(context) {
+                  return ' ' + context.label + ': ' + context.raw + '%';
+                }
+              }
+            }
+          }
+        }
+      });
+    });
+
   });
 </script>
 
