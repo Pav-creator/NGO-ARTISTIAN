@@ -4,9 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proposed Solutions — Field Project</title>
+
+<!-- Favicon (Browser Tab Icon) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬛</text></svg>">
+
+<!-- WhatsApp & Social Media Preview Tags -->
+<meta property="og:title" content="Local Craft. Real Reach.">
+<meta property="og:description" content="Field project studying digital adoption for NGOs and Artisans.">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; overflow-x: hidden; }
 .mono { font-family: ui-monospace, monospace; }
 .container { max-width:720px; margin:0 auto; padding:64px 24px 0 24px; }
 .mark { font-size:13px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:56px; }
@@ -21,11 +29,58 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
 .body h3 { font-size:17px; font-weight:700; margin:40px 0 12px 0; }
 .num { color:#666; }
 
-/* Solution Blocks */
-.solution-box { border-left: 2px solid #000; padding-left: 20px; margin-bottom: 32px; }
-.solution-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-.solution-box h4 span { font-family: ui-monospace, monospace; font-size: 13px; color: #666; font-weight: normal; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
-.solution-box p { font-size: 15px; color: #333; margin: 0; }
+/* Scroll Animation Classes */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  visibility: hidden;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, visibility;
+}
+.fade-in-section.is-visible { opacity: 1; transform: none; visibility: visible; }
+
+/* Premium Solution Cards */
+.solutions-wrapper { margin-top: 32px; }
+.solution-box { 
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-left: 4px solid #000;
+  padding: 28px 24px; 
+  border-radius: 8px;
+  margin-bottom: 24px; 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  page-break-inside: avoid;
+}
+.solution-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+}
+.solution-box h4 { 
+  font-size: 16px; 
+  font-weight: 700; 
+  margin-bottom: 12px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.solution-box h4 span { 
+  font-family: ui-monospace, monospace; 
+  font-size: 12.5px; 
+  color: #fff; 
+  font-weight: 600; 
+  background: #000; 
+  padding: 4px 12px; 
+  border-radius: 20px; 
+  letter-spacing: 0.05em;
+}
+.solution-box p { font-size: 15.5px; color: #444; margin: 0; line-height: 1.6; }
+.solution-box p b { color: #000; font-size: 16px; }
+
+/* Print Button Style */
+.submit-btn { background: #000; color: #fff; border: none; padding: 14px 24px; font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
+.submit-btn:hover { background: #333; }
 
 /* Floating Nav */
 .side-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 999; }
@@ -36,7 +91,14 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
 .side-nav.right a { border-right: none; border-radius: 4px 0 0 4px; }
 .side-nav a:hover { background: #000; color: #fff; border-color: #000; }
 
-footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font-size:13.5px; color:#000; text-align:center; }
+/* Print Mode Settings */
+@media print {
+  .side-nav, .sections, .submit-btn { display: none !important; }
+  body { font-size: 14px; }
+  .solution-box { box-shadow: none !important; transform: none !important; border-color: #ccc; }
+  .fade-in-section { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+}
+
 @media (max-width:800px){
   body { font-size:16px; }
   .container { padding:44px 20px 0 20px; }
@@ -45,6 +107,7 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
   .side-nav.left { left: 16px; }
   .side-nav.right { right: 16px; }
   .side-nav a { border: 1px solid #e2e2e2 !important; border-radius: 30px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  .solution-box h4 { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 </style>
 </head>
@@ -62,33 +125,64 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
   </div>
 
   <div class="body">
-    <h3><span class="num">(1)</span> Bridging the Gap</h3>
-    <p>Based on the data collected from 104 respondents, several clear barriers prevent local NGOs and artisans from adopting digital platforms. Below are the proposed technical and strategic solutions to address these exact pain points.</p>
+    <div class="fade-in-section">
+      <h3><span class="num">(1)</span> Bridging the Gap</h3>
+      <p>Based on the data collected from 104 respondents, several clear barriers prevent local NGOs and artisans from adopting digital platforms. Below are the proposed technical and strategic solutions to address these exact pain points.</p>
+    </div>
 
-    <h3><span class="num">(2)</span> Proposed Solutions</h3>
+    <div class="fade-in-section">
+      <h3><span class="num">(2)</span> Proposed Solutions</h3>
+    </div>
     
-    <div class="solution-box">
-      <h4>Problem 1: Complex UI & Language Barrier <span>29.8% reported</span></h4>
-      <p><b>Solution:</b> Web development for NGOs should focus on minimalist interfaces with local language (Hindi/Marathi) toggles. Complex e-commerce checkout flows should be replaced with simple <b>"Inquire via WhatsApp"</b> buttons to reduce friction and technical burden.</p>
+    <div class="solutions-wrapper">
+      <div class="solution-box fade-in-section">
+        <h4>Problem 1: Complex UI & Language Barrier <span>29.8% reported</span></h4>
+        <p><b>Solution:</b> Web development for NGOs should focus on minimalist interfaces with local language (Hindi/Marathi) toggles. Complex e-commerce checkout flows should be replaced with simple <b>"Inquire via WhatsApp"</b> buttons to reduce friction and technical burden.</p>
+      </div>
+
+      <div class="solution-box fade-in-section">
+        <h4>Problem 2: Fear of Online Fraud <span>24.0% reported</span></h4>
+        <p><b>Solution:</b> To build trust, websites must include a dedicated "Our Story" section outlining the artisan's journey. Displaying customer reviews, verified NGO badges, and clear return policies are essential to build consumer confidence safely.</p>
+      </div>
+
+      <div class="solution-box fade-in-section">
+        <h4>Problem 3: Budget Constraints <span>24.0% want free tools</span></h4>
+        <p><b>Solution:</b> To address the budget issue, developers should utilize open-source platforms and static site generators (hosted for free on platforms like GitHub Pages) to keep monthly server and maintenance costs near zero.</p>
+      </div>
+
+      <div class="solution-box fade-in-section">
+        <h4>Problem 4: Lack of Technical Skill <span>52.0% need training</span></h4>
+        <p><b>Solution:</b> Before handing over a website, structured training modules must be provided. These hands-on workshops should teach creators basic product uploading, safe digital communication, and inquiry tracking.</p>
+      </div>
     </div>
 
-    <div class="solution-box">
-      <h4>Problem 2: Fear of Online Fraud <span>24.0% reported</span></h4>
-      <p><b>Solution:</b> To build trust, websites must include a dedicated "Our Story" section outlining the artisan's journey. Displaying customer reviews, verified NGO badges, and clear return policies are essential to build consumer confidence safely.</p>
+    <!-- PRINT BUTTON -->
+    <div class="fade-in-section">
+      <button onclick="window.print()" class="submit-btn" style="margin: 40px auto 0 auto; display: block;">Download Solutions PDF</button>
     </div>
 
-    <div class="solution-box">
-      <h4>Problem 3: Budget Constraints <span>24.0% want free tools</span></h4>
-      <p><b>Solution:</b> To address the budget issue, developers should utilize open-source platforms and static site generators (hosted for free on platforms like GitHub Pages) to keep monthly server and maintenance costs near zero.</p>
-    </div>
-
-    <div class="solution-box">
-      <h4>Problem 4: Lack of Technical Skill <span>52.0% need training</span></h4>
-      <p><b>Solution:</b> Before handing over a website, structured training modules must be provided. These hands-on workshops should teach creators basic product uploading, safe digital communication, and inquiry tracking.</p>
-    </div>
   </div>
 </div>
 
 <footer><div class="container mono">Abhay Verma © 2026</div></footer>
+
+<!-- Scroll Animation Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const sections = document.querySelectorAll('.fade-in-section');
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
+
 </body>
 </html>
