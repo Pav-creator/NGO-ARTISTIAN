@@ -14,7 +14,7 @@
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; overflow-x: hidden; }
 .mono { font-family: ui-monospace, monospace; }
 .container { max-width:720px; margin:0 auto; padding:64px 24px 0 24px; }
 .mark { font-size:13px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:56px; }
@@ -28,18 +28,45 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
 .body p { margin-bottom:22px; }
 .body h3 { font-size:17px; font-weight:700; margin:40px 0 12px 0; }
 .num { color:#666; }
-.data { border-top:1px solid #000; margin:8px 0 22px 0; }
-.drow { display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid #eee; font-size:15px; }
+
+/* Scroll Animation Classes */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  visibility: hidden;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, visibility;
+}
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+}
+
+/* Enhanced Graph Box */
+.pies { display:grid; grid-template-columns:1fr 1fr; gap:32px 24px; margin:24px 0 48px 0; }
+.pie-block { 
+  background: #fdfdfd; 
+  border: 1px solid #eee; 
+  padding: 24px; 
+  border-radius: 8px; 
+  transition: border-color 0.3s ease;
+  page-break-inside: avoid;
+}
+.pie-block:hover { border-color: #ccc; }
+.pie-block .pt { font-size:15px; font-weight:700; margin-bottom:16px; color: #111; line-height: 1.4; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+.pie-block .pt span { color: #666; font-family: ui-monospace, monospace; font-size: 13px; font-weight: normal; margin-right: 4px; }
+.pie-row { display:flex; gap:16px; align-items:center; }
+.pie { width:100px; height:100px; border-radius:50%; flex-shrink:0; border:1px solid #eaeaea; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.leg { font-size:13.5px; line-height:1.7; }
+.leg div { margin-bottom:4px; display: flex; align-items: center; }
+.sq { display:inline-block; width:10px; height:10px; margin-right:8px; border-radius: 2px; }
+
+/* Data Summary */
+.data { border-top:1px solid #000; margin:32px 0 22px 0; }
+.drow { display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid #eee; font-size:15px; }
 .drow b { font-weight:600; }
-.drow .pct { font-family:ui-monospace, monospace; white-space:nowrap; }
-.pies { display:grid; grid-template-columns:1fr 1fr; gap:32px 24px; margin:24px 0; }
-.pie-block { page-break-inside: avoid; } /* Yeh line PDF print mein chart ko aadha katne se rokegi */
-.pie-block .pt { font-size:14px; font-weight:600; margin-bottom:10px; }
-.pie-row { display:flex; gap:14px; align-items:center; }
-.pie { width:104px; height:104px; border-radius:50%; flex-shrink:0; border:1px solid #e2e2e2; }
-.leg { font-size:13.5px; line-height:1.6; }
-.leg div { margin-bottom:2px; }
-.sq { display:inline-block; width:9px; height:9px; margin-right:7px; background:#000; }
+.drow .pct { font-family:ui-monospace, monospace; white-space:nowrap; font-weight: bold; }
 
 /* Print Button Style */
 .submit-btn { background: #000; color: #fff; border: none; padding: 14px 24px; font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
@@ -54,13 +81,14 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
 .side-nav.right a { border-right: none; border-radius: 4px 0 0 4px; }
 .side-nav a:hover { background: #000; color: #fff; border-color: #000; }
 
-/* Hide buttons when printing */
+/* Print Settings */
 @media print {
   .side-nav, .sections, .submit-btn { display: none !important; }
   body { font-size: 14px; }
+  .pie-block { border: 1px solid #ddd; }
+  .fade-in-section { opacity: 1 !important; transform: none !important; visibility: visible !important; }
 }
 
-footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font-size:13.5px; color:#000; text-align:center; }
 @media (max-width:800px){
   body { font-size:16px; }
   .container { padding:44px 20px 0 20px; }
@@ -75,7 +103,6 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
 </head>
 <body>
 
-<!-- Floating Buttons -->
 <div class="side-nav left"><a href="data.html"><span>←</span> Data</a></div>
 <div class="side-nav right"><a href="solution.html">Solutions <span>→</span></a></div>
 
@@ -83,7 +110,6 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
   <div class="mark mono">AV <span>— Field Project · Mumbai</span></div>
   <h1 class="headline">Local Craft. Real Reach.</h1>
 
-  <!-- New 6-Page Navigation -->
   <div class="sections mono" style="border-top:1px solid #eee; padding-top:40px;">
     <a href="index.html">Home</a> · 
     <a href="data.html">Data</a> · 
@@ -94,97 +120,109 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
   </div>
 
   <div class="body">
-    <h3><span class="num">(1)</span> Results — all 10 questions, n = 104</h3>
-    <p>Every chart below is computed from your CSV (104 responses). 75.9% believe a website would help (44.2% “yes, absolutely” + 31.7% “maybe”). 52.0% need help operating a site (33.7% “a little guidance” + 18.3% “full training”). Top trust feature in the real data: verified security badges, 35.6%.</p>
+    <div class="fade-in-section">
+      <h3><span class="num">(1)</span> Survey Data Visualisation (n=104)</h3>
+      <p>The visualizations below map the responses collected during the field study. Overall, <b>75.9%</b> believe a website would enhance their reach, while technical skill and budget remain the primary operational hurdles.</p>
+    </div>
 
-    <!-- All 10 Pie Charts -->
     <div class="pies">
-      <div class="pie-block">
-        <div class="pt">Q1 · Age — half are 18–25</div>
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q1.</span> Age Demographics</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 50%, #F59E0B 50% 70.2%, #10B981 70.2% 85.6%, #EF4444 85.6% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>18–25 — 50.0% (52)</div><div><span class="sq" style="background:#F59E0B"></span>Under 18 — 20.2% (21)</div><div><span class="sq" style="background:#10B981"></span>Above 25 — 15.4% (16)</div><div><span class="sq" style="background:#EF4444"></span>Prefer not to say — 14.4% (15)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>18–25 (50.0%)</div><div><span class="sq" style="background:#F59E0B"></span>Under 18 (20.2%)</div><div><span class="sq" style="background:#10B981"></span>Above 25 (15.4%)</div><div><span class="sq" style="background:#EF4444"></span>Unspecified (14.4%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q2 · Would a website help?</div>
+      
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q2.</span> Would a website help?</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 44.2%, #F59E0B 44.2% 75.9%, #10B981 75.9% 96.1%, #EF4444 96.1% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Yes, absolutely — 44.2% (46)</div><div><span class="sq" style="background:#F59E0B"></span>Maybe — 31.7% (33)</div><div><span class="sq" style="background:#10B981"></span>Not sure — 20.2% (21)</div><div><span class="sq" style="background:#EF4444"></span>Offline better — 3.8% (4)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Yes, absolutely (44.2%)</div><div><span class="sq" style="background:#F59E0B"></span>Maybe (31.7%)</div><div><span class="sq" style="background:#10B981"></span>Not sure (20.2%)</div><div><span class="sq" style="background:#EF4444"></span>Offline better (3.8%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q3 · Current marketing</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q3.</span> Current Marketing Reach</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 33.7%, #F59E0B 33.7% 63.5%, #10B981 63.5% 89.5%, #EF4444 89.5% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Word of mouth — 33.7% (35)</div><div><span class="sq" style="background:#F59E0B"></span>Social media — 29.8% (31)</div><div><span class="sq" style="background:#10B981"></span>Exhibitions — 26.0% (27)</div><div><span class="sq" style="background:#EF4444"></span>No reach — 10.6% (11)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Word of mouth (33.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Social media (29.8%)</div><div><span class="sq" style="background:#10B981"></span>Exhibitions (26.0%)</div><div><span class="sq" style="background:#EF4444"></span>No reach (10.6%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q4 · Need training?</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q4.</span> Training required?</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 33.7%, #F59E0B 33.7% 61.6%, #10B981 61.6% 81.8%, #EF4444 81.8% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>A little guidance — 33.7% (35)</div><div><span class="sq" style="background:#F59E0B"></span>Figure it out — 27.9% (29)</div><div><span class="sq" style="background:#10B981"></span>No need — 20.2% (21)</div><div><span class="sq" style="background:#EF4444"></span>Full training — 18.3% (19)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>A little guidance (33.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Self-learn (27.9%)</div><div><span class="sq" style="background:#10B981"></span>No need (20.2%)</div><div><span class="sq" style="background:#EF4444"></span>Full training (18.3%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q5 · Wanted first on site</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q5.</span> Preferred Site Feature</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 31.7%, #F59E0B 31.7% 60.5%, #10B981 60.5% 86.5%, #EF4444 86.5% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>NGO story — 31.7% (33)</div><div><span class="sq" style="background:#F59E0B"></span>Payments — 28.8% (30)</div><div><span class="sq" style="background:#10B981"></span>Contact/order — 26.0% (27)</div><div><span class="sq" style="background:#EF4444"></span>Gallery — 13.5% (14)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>NGO story (31.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Payments (28.8%)</div><div><span class="sq" style="background:#10B981"></span>Contact form (26.0%)</div><div><span class="sq" style="background:#EF4444"></span>Gallery (13.5%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q6 · Hardest with digital tools</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q6.</span> Biggest Digital Barrier</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 29.8%, #F59E0B 29.8% 53.8%, #10B981 53.8% 77.8%, #EF4444 77.8% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>English barrier — 29.8% (31)</div><div><span class="sq" style="background:#F59E0B"></span>Fraud fear — 24.0% (25)</div><div><span class="sq" style="background:#10B981"></span>Slow internet — 24.0% (25)</div><div><span class="sq" style="background:#EF4444"></span>Order tracking — 22.1% (23)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>English UI (29.8%)</div><div><span class="sq" style="background:#F59E0B"></span>Fraud fear (24.0%)</div><div><span class="sq" style="background:#10B981"></span>Slow internet (24.0%)</div><div><span class="sq" style="background:#EF4444"></span>Order tracking (22.1%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q7 · Easiest way to connect</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q7.</span> Preferred Contact Method</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 33.7%, #F59E0B 33.7% 61.6%, #10B981 61.6% 81.8%, #EF4444 81.8% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Phone/WhatsApp — 33.7% (35)</div><div><span class="sq" style="background:#F59E0B"></span>Social media — 27.9% (29)</div><div><span class="sq" style="background:#10B981"></span>Website form — 20.2% (21)</div><div><span class="sq" style="background:#EF4444"></span>Email — 18.3% (19)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>WhatsApp/Phone (33.7%)</div><div><span class="sq" style="background:#F59E0B"></span>Social media (27.9%)</div><div><span class="sq" style="background:#10B981"></span>Website form (20.2%)</div><div><span class="sq" style="background:#EF4444"></span>Email (18.3%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q8 · Monthly budget online</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q8.</span> Monthly Digital Budget</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 31.7%, #F59E0B 31.7% 57.7%, #10B981 57.7% 81.7%, #EF4444 81.7% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>More than Rs. 5,000 — 31.7% (33)</div><div><span class="sq" style="background:#F59E0B"></span>Rs. 1k–5k — 26.0% (27)</div><div><span class="sq" style="background:#10B981"></span>Free tools — 24.0% (25)</div><div><span class="sq" style="background:#EF4444"></span>Depends — 18.3% (19)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Above ₹5,000 (31.7%)</div><div><span class="sq" style="background:#F59E0B"></span>₹1k–₹5k (26.0%)</div><div><span class="sq" style="background:#10B981"></span>Free tools only (24.0%)</div><div><span class="sq" style="background:#EF4444"></span>Depends (18.3%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q9 · Expected developer support</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q9.</span> Expected Dev Support</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 29.8%, #F59E0B 29.8% 53.8%, #10B981 53.8% 77.8%, #EF4444 77.8% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Fix bugs — 29.8% (31)</div><div><span class="sq" style="background:#F59E0B"></span>Training — 24.0% (25)</div><div><span class="sq" style="background:#10B981"></span>Maintenance — 24.0% (25)</div><div><span class="sq" style="background:#EF4444"></span>No support — 22.1% (23)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Bug fixes (29.8%)</div><div><span class="sq" style="background:#F59E0B"></span>Training (24.0%)</div><div><span class="sq" style="background:#10B981"></span>Maintenance (24.0%)</div><div><span class="sq" style="background:#EF4444"></span>No support (22.1%)</div></div>
         </div>
       </div>
-      <div class="pie-block">
-        <div class="pt">Q10 · Builds most trust</div>
+
+      <div class="pie-block fade-in-section">
+        <div class="pt"><span>Q10.</span> Primary Trust Factor</div>
         <div class="pie-row">
           <div class="pie" style="background:conic-gradient(#2563EB 0% 35.6%, #F59E0B 35.6% 57.7%, #10B981 57.7% 79.8%, #EF4444 79.8% 100%);"></div>
-          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Security badges — 35.6% (37)</div><div><span class="sq" style="background:#F59E0B"></span>Reviews — 22.1% (23)</div><div><span class="sq" style="background:#10B981"></span>Artisan stories — 22.1% (23)</div><div><span class="sq" style="background:#EF4444"></span>Return policy — 20.2% (21)</div></div>
+          <div class="leg"><div><span class="sq" style="background:#2563EB"></span>Security badges (35.6%)</div><div><span class="sq" style="background:#F59E0B"></span>Reviews (22.1%)</div><div><span class="sq" style="background:#10B981"></span>Artisan stories (22.1%)</div><div><span class="sq" style="background:#EF4444"></span>Return policy (20.2%)</div></div>
         </div>
       </div>
     </div>
 
-    <!-- Full Data Summary -->
-    <div class="data mono">
-      <div class="drow"><b>Positive toward websites (Yes + Maybe)</b><span class="pct">75.9%</span></div>
-      <div class="drow"><b>Need some help (guidance + full training)</b><span class="pct">52.0%</span></div>
-      <div class="drow"><b>No reach outside local area</b><span class="pct">10.6% (11)</span></div>
-      <div class="drow"><b>Top contact: phone / WhatsApp</b><span class="pct">33.7% (35)</span></div>
-      <div class="drow"><b>Top trust: security badges</b><span class="pct">35.6% (37)</span></div>
+    <div class="fade-in-section">
+      <!-- Full Data Summary -->
+      <div class="data mono">
+        <div class="drow"><b>Positive toward websites (Yes + Maybe)</b><span class="pct">75.9%</span></div>
+        <div class="drow"><b>Need some help (guidance + full training)</b><span class="pct">52.0%</span></div>
+        <div class="drow"><b>No reach outside local area</b><span class="pct">10.6%</span></div>
+        <div class="drow"><b>Top contact: phone / WhatsApp</b><span class="pct">33.7%</span></div>
+        <div class="drow"><b>Top trust factor: security badges</b><span class="pct">35.6%</span></div>
+      </div>
+
+      <h3><span class="num">(2)</span> Key findings</h3>
+      <p><b>Skill.</b> 52.0% require operational assistance. The English barrier (29.8%) acts as the primary roadblock. <b>Budget.</b> While 31.7% have flexible budgets, 24.0% rely strictly on free tools, highlighting the need for low-cost, open-source tech stacks. <b>Trust.</b> Verification badges (35.6%) and transparent artisan stories build the highest consumer confidence.</p>
+
+      <!-- PRINT BUTTON -->
+      <button onclick="window.print()" class="submit-btn" style="margin: 40px auto 0 auto; display: block;">Download Graphs PDF</button>
     </div>
-
-    <h3><span class="num">(2)</span> Key findings</h3>
-    <p><b>Skill.</b> 52.0% need help (33.7% a little guidance + 18.3% full training). English barrier (29.8%) leads Q6, all four difficulties are close. <b>Budget.</b> 31.7% can spend over Rs. 5,000, but 24.0% want free tools — low-cost tiers required. <b>Trust.</b> Security badges lead (35.6%), then reviews and artisan stories (22.1% each). <b>Support.</b> Bug fixing leads (29.8%), then training and maintenance (24.0% each).</p>
-
-    <!-- PRINT BUTTON ADDED HERE -->
-    <button onclick="window.print()" class="submit-btn" style="margin: 40px auto 0 auto; display: block;">Download Graphs PDF</button>
 
   </div>
 </div>
@@ -192,6 +230,24 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
 <footer>
   <div class="container mono">Abhay Verma © 2026</div>
 </footer>
+
+<!-- Scroll Animation Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const sections = document.querySelectorAll('.fade-in-section');
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
 
 </body>
 </html>
