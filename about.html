@@ -4,9 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About & References — Field Project</title>
+
+<!-- Favicon (Browser Tab Icon) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬛</text></svg>">
+
+<!-- WhatsApp & Social Media Preview Tags -->
+<meta property="og:title" content="Local Craft. Real Reach.">
+<meta property="og:description" content="Field project studying digital adoption for NGOs and Artisans.">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; overflow-x: hidden; }
 .mono { font-family: ui-monospace, monospace; }
 .container { max-width:720px; margin:0 auto; padding:64px 24px 0 24px; }
 .mark { font-size:13px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:56px; }
@@ -20,10 +28,66 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
 .body p { margin-bottom:22px; }
 .body h3 { font-size:17px; font-weight:700; margin:40px 0 12px 0; }
 .num { color:#666; }
-ol.tight { margin:0 0 22px 22px; }
-ol.tight li { margin-bottom:8px; }
-.names { text-align:center; margin:24px 0; font-size:15px; line-height:2.1; }
-.belief { text-align:center; margin:48px 0 24px 0; }
+
+/* Scroll Animation Classes */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  visibility: hidden;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, visibility;
+}
+.fade-in-section.is-visible { opacity: 1; transform: none; visibility: visible; }
+
+/* Highlight Boxes */
+.highlight-box {
+  background: #fdfdfd;
+  border: 1px solid #eaeaea;
+  border-left: 3px solid #000;
+  padding: 20px 24px;
+  border-radius: 6px;
+  margin-bottom: 32px;
+  transition: box-shadow 0.3s ease;
+}
+.highlight-box:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
+
+/* Premium Reference List */
+.ref-list { list-style: none; padding: 0; margin: 0 0 32px 0; counter-reset: ref-counter; }
+.ref-list li {
+  position: relative;
+  padding: 14px 16px 14px 52px;
+  margin-bottom: 10px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #444;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.ref-list li:hover { transform: translateX(6px); border-color: #ccc; color: #000; }
+.ref-list li::before {
+  counter-increment: ref-counter;
+  content: "[0" counter(ref-counter) "]";
+  position: absolute; left: 16px; top: 14px;
+  font-family: ui-monospace, monospace; font-size: 13px; color: #999;
+}
+
+/* Formal Declaration Box */
+.declaration-box {
+  margin-top: 56px;
+  padding: 32px 24px;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+  background: #fafafa;
+  text-align: center;
+}
+.declaration-box .names { font-size:15px; line-height:2.1; color: #555; margin-bottom: 24px; }
+.declaration-box .belief { font-size: 15px; color: #111; line-height: 1.8; }
+.signature { margin-top: 16px; font-weight: 600; font-style: italic; font-size: 18px; }
+
+/* Print Button Style */
+.submit-btn { background: #000; color: #fff; border: none; padding: 14px 24px; font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
+.submit-btn:hover { background: #333; }
 
 /* Floating Nav */
 .side-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 999; }
@@ -33,6 +97,14 @@ ol.tight li { margin-bottom:8px; }
 .side-nav.left a { border-left: none; border-radius: 0 4px 4px 0; }
 .side-nav.right a { border-right: none; border-radius: 4px 0 0 4px; }
 .side-nav a:hover { background: #000; color: #fff; border-color: #000; }
+
+/* Print Mode Settings */
+@media print {
+  .side-nav, .sections, .submit-btn { display: none !important; }
+  body { font-size: 14px; }
+  .fade-in-section { opacity: 1 !important; transform: none !important; visibility: visible !important; }
+  .highlight-box, .ref-list li { border-color: #ccc; }
+}
 
 footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font-size:13.5px; color:#000; text-align:center; }
 @media (max-width:800px){
@@ -56,32 +128,73 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
   <h1 class="headline">Local Craft. Real Reach.</h1>
 
   <div class="sections mono" style="border-top:1px solid #eee; padding-top:40px;">
-    <a href="index.html">Home</a> · <a href="data.html">Data</a> · <a href="graphs.html">Graphs</a> · <a href="solution.html">Solutions</a> · <a href="about.html" class="active">About</a> · <a href="contact.html">Contact</a>
+    <a href="index.html">Home</a> · 
+    <a href="data.html">Data</a> · 
+    <a href="graphs.html">Graphs</a> · 
+    <a href="solution.html">Solutions</a> · 
+    <a href="about.html" class="active">About</a> · 
+    <a href="contact.html">Contact</a>
   </div>
 
   <div class="body">
-    <h3><span class="num">(1)</span> Conclusion &amp; recommendations</h3>
-    <p>Awareness is growing; adoption is partial. Most know websites help, yet many still rely on offline word-of-mouth plus occasional social media. Barriers: devices, connectivity, fraud fear, English UI, no training, tight budgets. Attitude to learning is positive with proper guidance.</p>
-    <p>Recommendations: awareness camps; local-language, low-internet-friendly interfaces; hands-on training; better connectivity and helplines; security education; subsidised hosting; continuous monitoring; digital literacy.</p>
-
-    <div class="names">
-      Handmade crafts · Handloom textiles · NGO services · Sustainable goods<br>
-      Malad · Kandivali · Thane · Palghar
+    <div class="fade-in-section">
+      <h3><span class="num">(1)</span> Conclusion &amp; Recommendations</h3>
+      <div class="highlight-box">
+        <p>Awareness is growing; however, digital adoption remains partial. Most respondents understand the value of dedicated websites, yet many still rely heavily on offline word-of-mouth supplemented by occasional social media usage.</p>
+        <p style="margin-bottom: 0;"><b>Key Recommendations:</b> Host digital awareness camps; develop local-language and low-bandwidth interfaces; provide hands-on CMS training; establish subsidized hosting tiers; and run consumer security education campaigns.</p>
+      </div>
     </div>
 
-    <h3><span class="num">(2)</span> References</h3>
-    <ol class="tight">
-      <li>Ministry of Electronics & IT (2023). Digital India Programme – Artisans and MSMEs.</li>
-      <li>Reserve Bank of India (2022). Trends and Progress of Digital Platforms.</li>
-      <li>National Portal of India (2023). Digital Empowerment of NGOs.</li>
-      <li>Economic Times (2024). Local Artisans Adopting Digital Platforms.</li>
-      <li>Gupta, R. &amp; Sharma, P. (2021). Adoption of Digital Platforms in India.</li>
-    </ol>
+    <div class="fade-in-section">
+      <h3><span class="num">(2)</span> References</h3>
+      <ul class="ref-list">
+        <li>Ministry of Electronics & IT (2023). Digital India Programme – Artisans and MSMEs.</li>
+        <li>Reserve Bank of India (2022). Trends and Progress of Digital Platforms.</li>
+        <li>National Portal of India (2023). Digital Empowerment of NGOs.</li>
+        <li>Economic Times (2024). Local Artisans Adopting Digital Platforms.</li>
+        <li>Gupta, R. &amp; Sharma, P. (2021). Adoption of Digital Platforms in India.</li>
+      </ul>
+    </div>
 
-    <p class="belief">We share one belief: local craft deserves real reach.<br><br>Declaration: I, Abhay Verma, Roll No. 202503040, S.Y.B.Sc. (Computer Science), declare this Field Project was carried out by me under the guidance of Asst. Prof. Ajit Sharma. Original work, not submitted elsewhere.</p>
+    <div class="fade-in-section declaration-box">
+      <div class="names">
+        Handmade crafts · Handloom textiles · NGO services · Sustainable goods<br>
+        Malad · Kandivali · Thane · Palghar
+      </div>
+      <p class="belief">
+        We share one core belief: <b>local craft deserves real reach.</b><br><br>
+        <i>Declaration:</i> I, Abhay Kumar Mahendra Verma, Roll No. 202503040, S.Y.B.Sc. (Computer Science), declare this Field Project was carried out by me under the guidance of Asst. Prof. Ajit Sharma. This is original work and has not been submitted elsewhere.
+      </p>
+      <div class="signature">Abhay K. M. Verma</div>
+    </div>
+
+    <!-- PRINT BUTTON -->
+    <div class="fade-in-section">
+      <button onclick="window.print()" class="submit-btn" style="margin: 40px auto 0 auto; display: block;">Download Project Report PDF</button>
+    </div>
+
   </div>
 </div>
 
 <footer><div class="container mono">Abhay Verma © 2026</div></footer>
+
+<!-- Scroll Animation Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const sections = document.querySelectorAll('.fade-in-section');
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  });
+</script>
+
 </body>
 </html>
