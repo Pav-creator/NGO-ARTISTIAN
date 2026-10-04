@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About & References — Field Project</title>
+<title>Proposed Solutions — Field Project</title>
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; }
@@ -20,10 +20,12 @@ h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-he
 .body p { margin-bottom:22px; }
 .body h3 { font-size:17px; font-weight:700; margin:40px 0 12px 0; }
 .num { color:#666; }
-ol.tight { margin:0 0 22px 22px; }
-ol.tight li { margin-bottom:8px; }
-.names { text-align:center; margin:24px 0; font-size:15px; line-height:2.1; }
-.belief { text-align:center; margin:48px 0 24px 0; }
+
+/* Solution Blocks */
+.solution-box { border-left: 2px solid #000; padding-left: 20px; margin-bottom: 32px; }
+.solution-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.solution-box h4 span { font-family: ui-monospace, monospace; font-size: 13px; color: #666; font-weight: normal; background: #f4f4f4; padding: 2px 6px; border-radius: 4px; }
+.solution-box p { font-size: 15px; color: #333; margin: 0; }
 
 /* Floating Nav */
 .side-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 999; }
@@ -48,37 +50,42 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
 </head>
 <body>
 
-<div class="side-nav left"><a href="solution.html"><span>←</span> Solutions</a></div>
-<div class="side-nav right"><a href="contact.html">Contact <span>→</span></a></div>
+<div class="side-nav left"><a href="graphs.html"><span>←</span> Graphs</a></div>
+<div class="side-nav right"><a href="about.html">About <span>→</span></a></div>
 
 <div class="container">
   <div class="mark mono">AV <span>— Field Project · Mumbai</span></div>
   <h1 class="headline">Local Craft. Real Reach.</h1>
 
   <div class="sections mono" style="border-top:1px solid #eee; padding-top:40px;">
-    <a href="index.html">Home</a> · <a href="data.html">Data</a> · <a href="graphs.html">Graphs</a> · <a href="solution.html">Solutions</a> · <a href="about.html" class="active">About</a> · <a href="contact.html">Contact</a>
+    <a href="index.html">Home</a> · <a href="data.html">Data</a> · <a href="graphs.html">Graphs</a> · <a href="solution.html" class="active">Solutions</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a>
   </div>
 
   <div class="body">
-    <h3><span class="num">(1)</span> Conclusion &amp; recommendations</h3>
-    <p>Awareness is growing; adoption is partial. Most know websites help, yet many still rely on offline word-of-mouth plus occasional social media. Barriers: devices, connectivity, fraud fear, English UI, no training, tight budgets. Attitude to learning is positive with proper guidance.</p>
-    <p>Recommendations: awareness camps; local-language, low-internet-friendly interfaces; hands-on training; better connectivity and helplines; security education; subsidised hosting; continuous monitoring; digital literacy.</p>
+    <h3><span class="num">(1)</span> Bridging the Gap</h3>
+    <p>Based on the data collected from 104 respondents, several clear barriers prevent local NGOs and artisans from adopting digital platforms. Below are the proposed technical and strategic solutions to address these exact pain points.</p>
 
-    <div class="names">
-      Handmade crafts · Handloom textiles · NGO services · Sustainable goods<br>
-      Malad · Kandivali · Thane · Palghar
+    <h3><span class="num">(2)</span> Proposed Solutions</h3>
+    
+    <div class="solution-box">
+      <h4>Problem 1: Complex UI & Language Barrier <span>29.8% reported</span></h4>
+      <p><b>Solution:</b> Web development for NGOs should focus on minimalist interfaces with local language (Hindi/Marathi) toggles. Complex e-commerce checkout flows should be replaced with simple <b>"Inquire via WhatsApp"</b> buttons to reduce friction and technical burden.</p>
     </div>
 
-    <h3><span class="num">(2)</span> References</h3>
-    <ol class="tight">
-      <li>Ministry of Electronics & IT (2023). Digital India Programme – Artisans and MSMEs.</li>
-      <li>Reserve Bank of India (2022). Trends and Progress of Digital Platforms.</li>
-      <li>National Portal of India (2023). Digital Empowerment of NGOs.</li>
-      <li>Economic Times (2024). Local Artisans Adopting Digital Platforms.</li>
-      <li>Gupta, R. &amp; Sharma, P. (2021). Adoption of Digital Platforms in India.</li>
-    </ol>
+    <div class="solution-box">
+      <h4>Problem 2: Fear of Online Fraud <span>24.0% reported</span></h4>
+      <p><b>Solution:</b> To build trust, websites must include a dedicated "Our Story" section outlining the artisan's journey. Displaying customer reviews, verified NGO badges, and clear return policies are essential to build consumer confidence safely.</p>
+    </div>
 
-    <p class="belief">We share one belief: local craft deserves real reach.<br><br>Declaration: I, Abhay Verma, Roll No. 202503040, S.Y.B.Sc. (Computer Science), declare this Field Project was carried out by me under the guidance of Asst. Prof. Ajit Sharma. Original work, not submitted elsewhere.</p>
+    <div class="solution-box">
+      <h4>Problem 3: Budget Constraints <span>24.0% want free tools</span></h4>
+      <p><b>Solution:</b> To address the budget issue, developers should utilize open-source platforms and static site generators (hosted for free on platforms like GitHub Pages) to keep monthly server and maintenance costs near zero.</p>
+    </div>
+
+    <div class="solution-box">
+      <h4>Problem 4: Lack of Technical Skill <span>52.0% need training</span></h4>
+      <p><b>Solution:</b> Before handing over a website, structured training modules must be provided. These hands-on workshops should teach creators basic product uploading, safe digital communication, and inquiry tracking.</p>
+    </div>
   </div>
 </div>
 

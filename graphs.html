@@ -4,26 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Graphs & Results — Field Project</title>
+
+<!-- Favicon (Browser Tab Icon) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬛</text></svg>">
+
+<!-- WhatsApp & Social Media Preview Tags -->
+<meta property="og:title" content="Local Craft. Real Reach.">
+<meta property="og:description" content="Field project studying digital adoption for NGOs and Artisans.">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  background:#fff; color:#000;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size:17px; line-height:1.75;
-  -webkit-font-smoothing:antialiased;
-}
-.mono { font-family: ui-monospace, "IBM Plex Mono", "Atkinson Hyperlegible Mono", SFMono-Regular, Menlo, monospace; }
+body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+.mono { font-family: ui-monospace, monospace; }
 .container { max-width:720px; margin:0 auto; padding:64px 24px 0 24px; }
 .mark { font-size:13px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:56px; }
 .mark span { color:#666; }
-h1.headline {
-  font-variant:small-caps;
-  font-size:clamp(34px, 7vw, 58px);
-  line-height:1.05; letter-spacing:-0.01em; font-weight:600;
-  margin-bottom:48px; text-align:left;
-}
-.sections { text-align:center; font-size:13.5px; margin-bottom:64px; }
-.sections a { color:#000; text-decoration:none; margin:0 6px; }
+h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-height:1.05; letter-spacing:-0.01em; font-weight:600; margin-bottom:48px; }
+.sections { text-align:center; font-size:13.5px; margin-bottom:64px; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+.sections a { color:#000; text-decoration:none; padding:4px 8px; }
 .sections a:hover { text-decoration:underline; }
 .sections a.active { font-weight:bold; text-decoration:underline; }
 .body { text-align:left; margin-top:20px; }
@@ -33,8 +31,9 @@ h1.headline {
 .data { border-top:1px solid #000; margin:8px 0 22px 0; }
 .drow { display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid #eee; font-size:15px; }
 .drow b { font-weight:600; }
-.drow .pct { font-family:ui-monospace, Menlo, monospace; white-space:nowrap; }
+.drow .pct { font-family:ui-monospace, monospace; white-space:nowrap; }
 .pies { display:grid; grid-template-columns:1fr 1fr; gap:32px 24px; margin:24px 0; }
+.pie-block { page-break-inside: avoid; } /* Yeh line PDF print mein chart ko aadha katne se rokegi */
 .pie-block .pt { font-size:14px; font-weight:600; margin-bottom:10px; }
 .pie-row { display:flex; gap:14px; align-items:center; }
 .pie { width:104px; height:104px; border-radius:50%; flex-shrink:0; border:1px solid #e2e2e2; }
@@ -42,18 +41,24 @@ h1.headline {
 .leg div { margin-bottom:2px; }
 .sq { display:inline-block; width:9px; height:9px; margin-right:7px; background:#000; }
 
-/* Floating Side/Bottom Navigation */
+/* Print Button Style */
+.submit-btn { background: #000; color: #fff; border: none; padding: 14px 24px; font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 4px; transition: background 0.2s; }
+.submit-btn:hover { background: #333; }
+
+/* Floating Nav */
 .side-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 999; }
 .side-nav.left { left: 0; }
 .side-nav.right { right: 0; }
-.side-nav a {
-  display: flex; align-items: center; gap: 8px; background: #fff; color: #000;
-  text-decoration: none; padding: 12px 16px; border: 1px solid #e2e2e2;
-  font-family: ui-monospace, monospace; font-size: 13px; transition: all 0.2s;
-}
+.side-nav a { display: flex; align-items: center; gap: 8px; background: #fff; color: #000; text-decoration: none; padding: 12px 16px; border: 1px solid #e2e2e2; font-family: ui-monospace, monospace; font-size: 13px; transition: all 0.2s; }
 .side-nav.left a { border-left: none; border-radius: 0 4px 4px 0; }
 .side-nav.right a { border-right: none; border-radius: 4px 0 0 4px; }
 .side-nav a:hover { background: #000; color: #fff; border-color: #000; }
+
+/* Hide buttons when printing */
+@media print {
+  .side-nav, .sections, .submit-btn { display: none !important; }
+  body { font-size: 14px; }
+}
 
 footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font-size:13.5px; color:#000; text-align:center; }
 @media (max-width:800px){
@@ -72,23 +77,27 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
 
 <!-- Floating Buttons -->
 <div class="side-nav left"><a href="data.html"><span>←</span> Data</a></div>
-<div class="side-nav right"><a href="about.html">About <span>→</span></a></div>
+<div class="side-nav right"><a href="solution.html">Solutions <span>→</span></a></div>
 
 <div class="container">
   <div class="mark mono">AV <span>— Field Project · Mumbai</span></div>
   <h1 class="headline">Local Craft. Real Reach.</h1>
 
+  <!-- New 6-Page Navigation -->
   <div class="sections mono" style="border-top:1px solid #eee; padding-top:40px;">
-    <a href="index.html">Home</a> ·
-    <a href="data.html">Data Collection</a> ·
-    <a href="graphs.html" class="active">Graphs & Results</a> ·
-    <a href="about.html">About</a>
+    <a href="index.html">Home</a> · 
+    <a href="data.html">Data</a> · 
+    <a href="graphs.html" class="active">Graphs</a> · 
+    <a href="solution.html">Solutions</a> · 
+    <a href="about.html">About</a> · 
+    <a href="contact.html">Contact</a>
   </div>
 
   <div class="body">
     <h3><span class="num">(1)</span> Results — all 10 questions, n = 104</h3>
     <p>Every chart below is computed from your CSV (104 responses). 75.9% believe a website would help (44.2% “yes, absolutely” + 31.7% “maybe”). 52.0% need help operating a site (33.7% “a little guidance” + 18.3% “full training”). Top trust feature in the real data: verified security badges, 35.6%.</p>
 
+    <!-- All 10 Pie Charts -->
     <div class="pies">
       <div class="pie-block">
         <div class="pt">Q1 · Age — half are 18–25</div>
@@ -162,6 +171,7 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
       </div>
     </div>
 
+    <!-- Full Data Summary -->
     <div class="data mono">
       <div class="drow"><b>Positive toward websites (Yes + Maybe)</b><span class="pct">75.9%</span></div>
       <div class="drow"><b>Need some help (guidance + full training)</b><span class="pct">52.0%</span></div>
@@ -172,6 +182,10 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
 
     <h3><span class="num">(2)</span> Key findings</h3>
     <p><b>Skill.</b> 52.0% need help (33.7% a little guidance + 18.3% full training). English barrier (29.8%) leads Q6, all four difficulties are close. <b>Budget.</b> 31.7% can spend over Rs. 5,000, but 24.0% want free tools — low-cost tiers required. <b>Trust.</b> Security badges lead (35.6%), then reviews and artisan stories (22.1% each). <b>Support.</b> Bug fixing leads (29.8%), then training and maintenance (24.0% each).</p>
+
+    <!-- PRINT BUTTON ADDED HERE -->
+    <button onclick="window.print()" class="submit-btn" style="margin: 40px auto 0 auto; display: block;">Download Graphs PDF</button>
+
   </div>
 </div>
 

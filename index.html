@@ -4,33 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Local Craft. Real Reach. — Home</title>
+
+<!-- Favicon (Browser Tab Icon) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⬛</text></svg>">
+
+<!-- WhatsApp & Social Media Preview Tags -->
+<meta property="og:title" content="Local Craft. Real Reach.">
+<meta property="og:description" content="Field project studying digital adoption for NGOs and Artisans.">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  background:#fff; color:#000;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size:17px; line-height:1.75;
-  -webkit-font-smoothing:antialiased;
-}
-.mono { font-family: ui-monospace, "IBM Plex Mono", "Atkinson Hyperlegible Mono", SFMono-Regular, Menlo, monospace; }
+body { background:#fff; color:#000; font-family: "Inter", system-ui, -apple-system, sans-serif; font-size:17px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+.mono { font-family: ui-monospace, monospace; }
 .container { max-width:720px; margin:0 auto; padding:64px 24px 0 24px; }
 .mark { font-size:13px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:56px; }
 .mark span { color:#666; }
-h1.headline {
-  font-variant:small-caps;
-  font-size:clamp(34px, 7vw, 58px);
-  line-height:1.05; letter-spacing:-0.01em; font-weight:600;
-  margin-bottom:48px; text-align:left;
-}
-.grid3 {
-  display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;
-  margin-bottom:64px; padding-bottom:48px; border-bottom:1px solid #eee;
-}
+h1.headline { font-variant:small-caps; font-size:clamp(34px, 7vw, 58px); line-height:1.05; letter-spacing:-0.01em; font-weight:600; margin-bottom:48px; text-align:left; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-bottom:64px; padding-bottom:48px; border-bottom:1px solid #eee; }
 .grid3 .cell .k { font-size:13px; color:#000; margin-bottom:6px; }
 .grid3 .cell .v { font-size:14px; color:#000; text-decoration:underline; text-underline-offset:3px; overflow-wrap:break-word; }
 .grid3 .cell .v.plain { text-decoration:none; }
-.sections { text-align:center; font-size:13.5px; margin-bottom:64px; }
-.sections a { color:#000; text-decoration:none; margin:0 6px; }
+.sections { text-align:center; font-size:13.5px; margin-bottom:64px; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+.sections a { color:#000; text-decoration:none; padding:4px 8px; }
 .sections a:hover { text-decoration:underline; }
 .sections a.active { font-weight:bold; text-decoration:underline; }
 h2.opener { text-align:center; font-size:22px; font-weight:700; margin-bottom:20px; }
@@ -42,14 +37,10 @@ p.center { text-align:center; max-width:38em; margin:0 auto 20px auto; }
 ol.tight, ul.tight { margin:0 0 22px 22px; }
 ol.tight li, ul.tight li { margin-bottom:8px; }
 
-/* Floating Side/Bottom Navigation */
+/* Floating Nav */
 .side-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 999; }
 .side-nav.right { right: 0; }
-.side-nav a {
-  display: flex; align-items: center; gap: 8px; background: #fff; color: #000;
-  text-decoration: none; padding: 12px 16px; border: 1px solid #e2e2e2;
-  font-family: ui-monospace, monospace; font-size: 13px; transition: all 0.2s;
-}
+.side-nav a { display: flex; align-items: center; gap: 8px; background: #fff; color: #000; text-decoration: none; padding: 12px 16px; border: 1px solid #e2e2e2; font-family: ui-monospace, monospace; font-size: 13px; transition: all 0.2s; }
 .side-nav.right a { border-right: none; border-radius: 4px 0 0 4px; }
 .side-nav a:hover { background: #000; color: #fff; border-color: #000; }
 
@@ -67,47 +58,29 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
 </head>
 <body>
 
-<!-- Floating Next Button -->
-<div class="side-nav right">
-  <a href="data.html">Data <span>→</span></a>
-</div>
+<div class="side-nav right"><a href="data.html">Data <span>→</span></a></div>
 
 <div class="container">
   <div class="mark mono">AV <span>— Field Project · Mumbai</span></div>
   <h1 class="headline">Local Craft. Real Reach.</h1>
 
   <div class="grid3">
-    <div class="cell">
-      <div class="k mono">Student</div>
-      <div class="v plain">Abhay Verma<br>Roll 202503040</div>
-    </div>
-    <div class="cell">
-      <div class="k mono">Guide</div>
-      <div class="v plain">Asst. Prof. Ajit Sharma<br>10+ years</div>
-    </div>
-    <div class="cell">
-      <div class="k mono">Study</div>
-      <div class="v plain">n = 104 · Google Forms<br>S.Y.B.Sc. Computer Science</div>
-    </div>
+    <div class="cell"><div class="k mono">Student</div><div class="v plain">Abhay Verma<br>Roll 202503040</div></div>
+    <div class="cell"><div class="k mono">College</div><div class="v plain">Thakur Shyamnarayan<br>Degree College</div></div>
+    <div class="cell"><div class="k mono">Study</div><div class="v plain">n = 104 · Google Forms<br>S.Y.B.Sc. Computer Science</div></div>
   </div>
 
   <div class="sections mono">
-    <a href="index.html" class="active">Home</a> ·
-    <a href="data.html">Data Collection</a> ·
-    <a href="graphs.html">Graphs & Results</a> ·
-    <a href="about.html">About</a>
+    <a href="index.html" class="active">Home</a> · <a href="data.html">Data</a> · <a href="graphs.html">Graphs</a> · <a href="solution.html">Solutions</a> · <a href="about.html">About</a> · <a href="contact.html">Contact</a>
   </div>
 
   <h2 class="opener">Website Requirement Study &amp; Development for NGOs / Artisans</h2>
   <p class="center">We are studying how small NGOs, traditional artisans and local creators adopt dedicated websites — (1) what they need, (2) what blocks them, (3) what training helps, (4) what features build trust.</p>
 
   <div class="body">
-    <p>Our main goal is to understand  digital readiness beyond local markets. E-commerce in India has grown rapidly across urban and rural areas. Yet many NGOs and small-scale artisans still rely on offline methods instead of dedicated websites.</p>
-
+    <p>Our main goal is to understand digital readiness beyond local markets. E-commerce in India has grown rapidly across urban and rural areas. Yet many NGOs and small-scale artisans still rely on offline methods instead of dedicated websites.</p>
     <p>Primary data was collected through structured Google Form surveys among local NGOs, traditional artisans and community creators. The findings reveal that while most respondents recognize the value of a dedicated website for reaching wider audiences, challenges such as technical maintenance, training needs and budget constraints act as notable hurdles.</p>
-
-    <p>Respondents who wish to adopt digital tools report benefits such as wider product showcase, direct customer contact, structured storytelling and brand visibility. The study concludes with tailored training programs, simplified content management support and structured web development strategies.</p>
-
+    
     <h3><span class="num">(1)</span> Objectives</h3>
     <ol class="tight">
       <li>Evaluate digital readiness and current outreach methods.</li>
@@ -120,9 +93,6 @@ footer { border-top:1px solid #eee; margin-top:64px; padding:24px 0 56px 0; font
   </div>
 </div>
 
-<footer>
-  <div class="container mono">Abhay Verma © 2026</div>
-</footer>
-
+<footer><div class="container mono">Abhay Verma © 2026</div></footer>
 </body>
 </html>
